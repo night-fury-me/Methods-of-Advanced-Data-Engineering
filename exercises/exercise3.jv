@@ -28,13 +28,13 @@ pipeline GoodsTransportedByTrainPipeline {
     block GoodsTableInterpreter oftype TableInterpreter {
         header: false;
         columns: [
-            "year" oftype integer, 
-            "month" oftype text, 
-            "goods_id" oftype text, 
+            "year" oftype PositiveIntegerType, 
+            "month" oftype GermanMonthType, 
+            "goods_id" oftype GoodIdType, 
             "goods_name" oftype text, 
             "goods_source" oftype text, 
-            "abroad" oftype integer, 
-            "total" oftype integer
+            "abroad" oftype PositiveIntegerType, 
+            "total" oftype PositiveIntegerType
         ];
     }
   
