@@ -8,5 +8,5 @@ class Transformer(ABC):
     """
 
     @abstractmethod
-    def transform_data(self):
+    def transform_data(self, read_from, write_to, dataset_name):
         pass

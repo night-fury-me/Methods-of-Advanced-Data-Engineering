@@ -8,5 +8,5 @@ class Loader(ABC):
     """
 
     @abstractmethod
-    def load_data(self):
+    def load_data(self, read_from, write_to, database_name):
         pass

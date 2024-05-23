@@ -8,5 +8,5 @@ class Extractor(ABC):
     """
 
     @abstractmethod
-    def extract_data(self):
+    def extract_data(self, extract_from, extract_to):
         pass
