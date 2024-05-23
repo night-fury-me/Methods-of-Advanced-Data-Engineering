@@ -42,7 +42,9 @@ _Understanding the correlation between solar activity and climate change is cruc
 
 ### Project Work 03
 
-- [ ]  [Create pipeline for project](https://github.com/night-fury-me/Methods-of-Advanced-Data-Engineering/issues/6)
+- [ ] [Create pipeline for project](https://github.com/night-fury-me/Methods-of-Advanced-Data-Engineering/issues/6)
+  - [x] Initial phase of pipeline implementation is completed.
+  - [ ] Need to implement Airflow DAG for pipeline orchestration. 
 
 ### Project Work 04
 
