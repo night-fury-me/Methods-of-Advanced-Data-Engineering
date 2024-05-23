@@ -7,3 +7,4 @@ from .transform import TemperatureDataTransformer
 from .transform import Co2ConcentrationDataTransformer
 from .transform import SeaLevelDataTransformer
 from .transform import SolarFlareDataTransformer
+from .transform import TransformerFactory

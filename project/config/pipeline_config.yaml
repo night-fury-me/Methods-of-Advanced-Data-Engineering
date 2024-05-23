@@ -11,3 +11,4 @@ datasets:
 raw_path: "./data/raw/"
 transformed_path: "./data/transformed/"
 sink: "./data/sink/"
+db_name: "CombinedDataset.sqlite"
