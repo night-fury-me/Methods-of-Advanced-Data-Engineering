@@ -1,10 +1,13 @@
 import os
 import pandas as pd # type: ignore
-from utils import logger
 from .transformer import Transformer
-
+from logger import BaseLogger
 
 class TemperatureDataTransformer(Transformer):
+
+    def __init__(self, logger: BaseLogger) -> None:
+        super().__init__()
+        self.logger = logger
 
     def transform_data(self, read_from, write_to, dataset_name):
 
@@ -31,7 +34,7 @@ class TemperatureDataTransformer(Transformer):
             output_path = os.path.join(write_to, f"{dataset_name}.csv")
             data_melted.to_csv(output_path, index=False, header=True)
             
-            logger.info(f"Data transformation successful.")
+            self.logger.info(f"Data transformation successful.")
 
         except Exception as ex:
-            logger.error(f"Error occured while transforming data: {ex}")
+            self.logger.error(f"Error occured while transforming data: {ex}")

@@ -1,2 +1,2 @@
-from .logger import logger
-from .read_config import read_config
+from .config import Config
+from .converters import convert_to_class_name

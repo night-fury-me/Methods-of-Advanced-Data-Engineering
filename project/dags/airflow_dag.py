@@ -1,5 +1,6 @@
 import argparse
-from utils import logger
+from logger import BaseLogger
 
 def my_dag():
-    logger.error("its a fake dag")
+    #BaseLogger.error("its a fake dag")
+    pass

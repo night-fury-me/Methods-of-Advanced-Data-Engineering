@@ -1,20 +1,26 @@
 import os
 from dags import airflow_dag
-from utils import read_config, logger
+from logger import BaseLogger, ConsoleLogger
+from utils import Config, convert_to_class_name
 from etl_components import Extractor, CsvExtractor
 from etl_components import TransformFactory, Transformer
-
 from etl_components import Loader, SQLiteLoader
 
 def main():
     
     try:
-        config = read_config('./config/pipeline_config.yaml')
+        console_logger: BaseLogger = ConsoleLogger()
+
+        config = Config(
+            logger      = console_logger, 
+            file_path   = './config/pipeline_config.yaml'
+        ).get()
 
         for dataset in config['datasets']:
 
             extract: Extractor = CsvExtractor(
-                delimeter = ";" if dataset['name'] == 'Solar_Flare_Data' else None
+                logger      = console_logger,
+                delimeter   = ";" if dataset['name'] == 'Solar_Flare_Data' else None
             )
 
             extract.extract_data(
@@ -23,7 +29,9 @@ def main():
                 dataset_name    = dataset['name']
             )
 
-            transform: Transformer =  TransformFactory.transformers.get(dataset['name'])
+            transform: Transformer =  TransformFactory(logger = console_logger).get_transformer(
+                transformer_name = convert_to_class_name(dataset['name'], splitter = '_', suffix = 'Transformer')
+            )
             
             transform.transform_data(
                 read_from       = os.path.join(config['raw_path'], f"{dataset['name']}.csv"),
@@ -31,7 +39,7 @@ def main():
                 dataset_name    = dataset['name']
             )
             
-            load: Loader = SQLiteLoader()
+            load: Loader = SQLiteLoader(logger = console_logger)
 
             load.load_data(
                 read_from       = config['transformed_path'],
@@ -39,10 +47,10 @@ def main():
                 database_name   = config['db_name']
             )
         
-        logger.info("Pipeline execution completed.")
+        console_logger.info("Pipeline execution completed.")
 
     except Exception as ex:
-        logger.error(f"Error occured: {ex}")
+        console_logger.error(f"Error occured: {ex}")
 
 if __name__ == "__main__":
     main()

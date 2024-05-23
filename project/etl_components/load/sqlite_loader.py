@@ -1,10 +1,14 @@
 import os
 import sqlite3
 import pandas as pd # type: ignore
-from utils import logger
 from .loader import Loader
+from logger import BaseLogger
 
 class SQLiteLoader(Loader):
+
+    def __init__(self, logger: BaseLogger) -> None:
+        super().__init__()
+        self.logger = logger
 
     def load_data(self, read_from, write_to, database_name):
         
@@ -12,9 +16,9 @@ class SQLiteLoader(Loader):
         
         if not os.path.exists(database_path):
             os.mkdir(write_to)
-            logger.info(f"Database {database_name} did not exist and was created.")
+            self.logger.info(f"Database {database_name} did not exist and was created.")
         else:
-            logger.info(f"Database {database_name} exists. Connected successfully.")
+            self.logger.info(f"Database {database_name} exists. Connected successfully.")
 
         conn = sqlite3.connect(database_path)
 
@@ -27,14 +31,14 @@ class SQLiteLoader(Loader):
                     data = pd.read_csv(file_path)
 
                     data.to_sql(table_name, conn, if_exists='replace', index=False)
-                    logger.info(f"Data from {file_path} loaded into {table_name} table in {database_name} database.")
+                    self.logger.info(f"Data from {file_path} loaded into {table_name} table in {database_name} database.")
 
             conn.commit()
 
         except Exception as ex:
-            logger.error(f"An exception occurred: {ex}")
+            self.logger.error(f"An exception occurred: {ex}")
 
         finally:
             if conn:
                 conn.close()
-                logger.info(f"Connection to {database_name} closed.")
+                self.logger.info(f"Connection to {database_name} closed.")
