@@ -4,7 +4,7 @@ from .co2_concentration_data_transformer import Co2ConcentrationDataTransformer
 from .sea_level_data_transformer import SeaLevelDataTransformer
 from .solar_flare_data_transformer import SolarFlareDataTransformer
 
-class TransformerFactory:
+class TransformFactory:
 
     transformers = {
         'Temperature_Data' : TemperatureDataTransformer(),

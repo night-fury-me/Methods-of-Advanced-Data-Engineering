@@ -2,7 +2,7 @@ import os
 from dags import airflow_dag
 from utils import read_config, logger
 from etl_components import Extractor, CsvExtractor
-from etl_components import TransformerFactory
+from etl_components import TransformFactory
 
 from etl_components import Loader, SQLiteLoader
 
@@ -23,7 +23,7 @@ def main():
                 delimiter       = ";" if dataset['name'] == 'Solar_Flare_Data' else None
             )
 
-            TransformerFactory.transformers.get(dataset['name']).transform_data(
+            TransformFactory.transformers.get(dataset['name']).transform_data(
                 read_from       = os.path.join(config['raw_path'], f"{dataset['name']}.csv"),
                 write_to        = config['transformed_path'],
                 dataset_name    = dataset['name']
