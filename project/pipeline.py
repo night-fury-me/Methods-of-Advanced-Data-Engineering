@@ -18,30 +18,30 @@ def main():
 
         for dataset in config['datasets']:
 
-            extract: Extractor = CsvExtractor(
+            extractor: Extractor = CsvExtractor(
                 logger      = console_logger,
                 delimeter   = ";" if dataset['name'] == 'Solar_Flare_Data' else None
             )
 
-            extract.extract_data(
+            extractor.extract_data(
                 extract_from    = dataset['source'],
                 extract_to      = config['raw_path'],
                 dataset_name    = dataset['name']
             )
 
-            transform: Transformer =  TransformFactory(logger = console_logger).get_transformer(
+            transformer: Transformer =  TransformFactory(logger = console_logger).get_transformer(
                 transformer_name = convert_to_class_name(dataset['name'], splitter = '_', suffix = 'Transformer')
             )
             
-            transform.transform_data(
+            transformer.transform_data(
                 read_from       = os.path.join(config['raw_path'], f"{dataset['name']}.csv"),
                 write_to        = config['transformed_path'],
                 dataset_name    = dataset['name']
             )
             
-            load: Loader = SQLiteLoader(logger = console_logger)
+            loader: Loader = SQLiteLoader(logger = console_logger)
 
-            load.load_data(
+            loader.load_data(
                 read_from       = config['transformed_path'],
                 write_to        = config['sink'],
                 database_name   = config['db_name']
