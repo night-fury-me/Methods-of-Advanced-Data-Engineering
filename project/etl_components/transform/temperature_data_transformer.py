@@ -22,7 +22,7 @@ class TemperatureDataTransformer(Transformer):
             )
 
             data_melted['Date'] = data_melted['Date'].str.extract(r'F(\d+)').astype(int)
-            data_melted['Date'] = pd.to_datetime(data_melted['Date'], format='%Y')
+            data_melted['Date'] = pd.to_datetime(data_melted['Date'], format='%Y').dt.strftime('%Y-%m-%d %H:%M:%S')
             data_melted.dropna()
 
             if not os.path.exists(write_to):

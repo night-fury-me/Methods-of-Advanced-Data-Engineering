@@ -20,7 +20,7 @@ class SeaLevelDataTransformer(Transformer):
             if not os.path.exists(write_to):
                 os.makedirs(write_to)
             
-            output_path = os.path.join(write_to, dataset_name)
+            output_path = os.path.join(write_to, f"{dataset_name}.csv")
             data_subset.to_csv(output_path, index=False, header=True)
 
             logger.info(f"Data transformation successful.")

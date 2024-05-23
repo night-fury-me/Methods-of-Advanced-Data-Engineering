@@ -1,28 +1,20 @@
 
 import os
-import csv
-import requests
+import pandas as pd # type: ignore
 from utils import logger
 
 from .extractor import Extractor
 
 class CsvExtractor(Extractor):
 
-    def extract_data(self, extract_from, extract_to, dataset_name):
+    def extract_data(self, extract_from, extract_to, dataset_name, delimiter=None):
         
         try:
             if not os.path.exists(extract_to):
                 os.makedirs(extract_to)
 
-            with requests.get(extract_from) as response:
-                response.raise_for_status()
-                data = response.text
-                csv_file_path = f"{extract_to}/{dataset_name}.csv"
-
-                with open(csv_file_path, "w", newline="", encoding="utf-8") as csv_file:
-                    writer = csv.writer(csv_file)
-                    for line in data.splitlines():
-                        writer.writerow(line.split(','))
+            data = pd.read_csv(extract_from, delimiter=delimiter)
+            data.to_csv(f"{extract_to}/{dataset_name}.csv")
 
             logger.info(f"Data extracted and saved to: {extract_to}")
         except Exception as ex:
