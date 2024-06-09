@@ -1,11 +1,11 @@
 import os
-from dags import airflow_dag
 from logger import BaseLogger, ConsoleLogger
 from utils import Config, convert_to_class_name
 from etl_components import Extractor, CsvExtractor
 from etl_components import TransformFactory, Transformer
 from etl_components import Loader, SQLiteLoader
 from tasks import Task, TaskPipeline, PipelineQueue
+from copy import deepcopy
 
 def _load(console_logger, config):
     loader: Loader = SQLiteLoader(logger = console_logger)
@@ -20,7 +20,6 @@ def _transform(console_logger, config, dataset):
     transformer: Transformer =  TransformFactory(logger = console_logger).get_transformer(
         transformer_name = convert_to_class_name(dataset['name'], splitter = '_', suffix = 'Transformer')
     )
-    
     transformer.transform_data(
         read_from       = os.path.join(config['raw_path'], f"{dataset['name']}.csv"),
         write_to        = config['transformed_path'],
@@ -53,16 +52,24 @@ def main():
         pipeline_queue = PipelineQueue()
 
         for dataset in config['datasets']:
+            
+            console_logger.info(dataset)
 
             extract = Task(
                 name    = 'Extraction task',
-                action  = lambda: _extract(console_logger, config, dataset),
+                action  = (
+                    lambda dataset  = dataset: 
+                        _extract(console_logger, config, dataset)
+                ),
                 logger  = console_logger 
             )
 
             transform = Task(
                 name    = 'Transform task',
-                action  = lambda: _transform(console_logger, config, dataset),
+                action  = (
+                    lambda dataset = dataset:
+                        _transform(console_logger, config, dataset)
+                ),
                 logger  = console_logger
             )
 
