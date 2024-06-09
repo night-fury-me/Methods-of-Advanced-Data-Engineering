@@ -72,7 +72,6 @@ def main():
                 logger  = console_logger
             )
             
-
             pipeline = TaskPipeline(
                 name    = f'Pipeline for {dataset['name']}',
                 logger  = console_logger
