@@ -13,7 +13,6 @@ class Co2ConcentrationDataTransformer(Transformer):
 
         try:
             data = pd.read_csv(read_from)
-            self.logger.info(f"Columns: {data.columns.to_list()}")
             data_subset = data[['Date', 'Value']]
 
             data_subset.columns = ['Date', 'CO2_Concentration_PPM']

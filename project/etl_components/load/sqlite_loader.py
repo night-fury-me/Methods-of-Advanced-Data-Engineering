@@ -1,6 +1,8 @@
 import os
 import sqlite3
 import pandas as pd # type: ignore
+
+from pathlib import Path
 from .loader import Loader
 from logger import BaseLogger
 
@@ -14,11 +16,12 @@ class SQLiteLoader(Loader):
         
         database_path = os.path.join(write_to, database_name) 
         
-        if not os.path.exists(database_path):
-            os.mkdir(write_to)
-            self.logger.info(f"Database {database_name} did not exist and was created.")
+        if not Path(database_path).exists():
+            # Create the empty file
+            Path(database_path).touch()
+            print(f"Empty file created at: {database_path}")
         else:
-            self.logger.info(f"Database {database_name} exists. Connected successfully.")
+            print(f"The file '{database_path}' already exists.")
 
         conn = sqlite3.connect(database_path)
 
