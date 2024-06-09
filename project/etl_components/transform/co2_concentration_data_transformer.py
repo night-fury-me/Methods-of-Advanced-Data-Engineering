@@ -13,6 +13,7 @@ class Co2ConcentrationDataTransformer(Transformer):
 
         try:
             data = pd.read_csv(read_from)
+            self.logger.info(f"Columns: {data.columns.to_list()}")
             data_subset = data[['Date', 'Value']]
 
             data_subset.columns = ['Date', 'CO2_Concentration_PPM']
@@ -25,7 +26,7 @@ class Co2ConcentrationDataTransformer(Transformer):
             output_path = os.path.join(write_to, f"{dataset_name}.csv")
             data_subset.to_csv(output_path, index=False, header=True)
 
-            self.logger.info(f"Data transformation successful.")
+            self.logger.info(f"Data transformation successful")
 
         except Exception as ex:
             self.logger.error(f"Error occured while transforming data: {ex}")
