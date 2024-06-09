@@ -7,7 +7,7 @@ from etl_components import TransformFactory, Transformer
 from etl_components import Loader, SQLiteLoader
 from tasks import Task, TaskPipeline, PipelineQueue
 
-def load(console_logger, config):
+def _load(console_logger, config):
     loader: Loader = SQLiteLoader(logger = console_logger)
 
     loader.load_data(
@@ -16,7 +16,7 @@ def load(console_logger, config):
         database_name   = config['db_name']
     )
 
-def transform(console_logger, config, dataset):
+def _transform(console_logger, config, dataset):
     transformer: Transformer =  TransformFactory(logger = console_logger).get_transformer(
         transformer_name = convert_to_class_name(dataset['name'], splitter = '_', suffix = 'Transformer')
     )
@@ -27,7 +27,7 @@ def transform(console_logger, config, dataset):
         dataset_name    = dataset['name']
     )
 
-def extract(console_logger, config, dataset):
+def _extract(console_logger, config, dataset):
     extractor: Extractor = CsvExtractor(
         logger      = console_logger,
         delimeter   = ";" if dataset['name'] == 'Solar_Flare_Data' else None
@@ -54,21 +54,21 @@ def main():
 
         for dataset in config['datasets']:
 
-            extraction_task = Task(
+            extract = Task(
                 name    = 'Extraction task',
-                action  = lambda: extract(console_logger, config, dataset),
+                action  = lambda: _extract(console_logger, config, dataset),
                 logger  = console_logger 
             )
 
-            transform_task = Task(
+            transform = Task(
                 name    = 'Transform task',
-                action  = lambda: transform(console_logger, config, dataset),
+                action  = lambda: _transform(console_logger, config, dataset),
                 logger  = console_logger
             )
 
-            load_task = Task(
+            load = Task(
                 name    = 'Load task',
-                action  = lambda: load(console_logger, config),
+                action  = lambda: _load(console_logger, config),
                 logger  = console_logger
             )
             
@@ -78,8 +78,12 @@ def main():
                 logger  = console_logger
             )
 
-            pipeline >> extraction_task >> transform_task >> load_task
-            pipeline_queue.push(pipeline)
+            pipeline_queue.push((
+                pipeline 
+                    >> extract 
+                        >> transform 
+                            >> load
+            ))
 
         pipeline_queue.run()
 
