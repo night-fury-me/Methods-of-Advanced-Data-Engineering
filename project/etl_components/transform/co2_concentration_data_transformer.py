@@ -13,11 +13,12 @@ class Co2ConcentrationDataTransformer(Transformer):
 
         try:
             data = pd.read_csv(read_from)
-            data_subset = data[['Date', 'Value']]
 
+            data_subset = data.loc[:, ~data.columns.str.contains('Unnamed', case = False)]
+            data_subset = data_subset[['Date', 'Value']]
             data_subset.columns = ['Date', 'CO2_Concentration_PPM']
-
             data_subset.loc[:, 'Date'] = pd.to_datetime(data_subset['Date'], format='%YM%m').dt.strftime('%Y-%m-%d %H:%M:%S')
+            data_subset = data_subset.dropna()
 
             if not os.path.exists(write_to):
                 os.makedirs(write_to)

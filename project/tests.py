@@ -1,8 +1,8 @@
 import unittest
 
 from tests import (
+    TestPipeline,
     TestTransform, 
-    TestPipeline
 )
 
 if __name__ == '__main__':

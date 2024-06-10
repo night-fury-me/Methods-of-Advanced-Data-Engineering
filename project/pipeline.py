@@ -7,13 +7,16 @@ from etl_components import Loader, SQLiteLoader
 from tasks import Task, TaskPipeline, PipelineQueue
 from copy import deepcopy
 
-def _load(console_logger, config):
-    loader: Loader = SQLiteLoader(logger = console_logger)
+def _extract(console_logger, config, dataset):
+    extractor: Extractor = CsvExtractor(
+        logger      = console_logger,
+        delimeter   = ";" if dataset['name'] == 'Solar_Flare_Data' else None
+    )
 
-    loader.load_data(
-        read_from       = config['transformed_path'],
-        write_to        = config['sink'],
-        database_name   = config['db_name']
+    extractor.extract_data(
+        extract_from    = dataset['source'],
+        extract_to      = config['raw_path'],
+        dataset_name    = dataset['name']
     )
 
 def _transform(console_logger, config, dataset):
@@ -26,17 +29,15 @@ def _transform(console_logger, config, dataset):
         dataset_name    = dataset['name']
     )
 
-def _extract(console_logger, config, dataset):
-    extractor: Extractor = CsvExtractor(
-        logger      = console_logger,
-        delimeter   = ";" if dataset['name'] == 'Solar_Flare_Data' else None
+def _load(console_logger, config):
+    loader: Loader = SQLiteLoader(logger = console_logger)
+
+    loader.load_data(
+        read_from       = config['transformed_path'],
+        write_to        = config['sink'],
+        database_name   = config['db_name']
     )
 
-    extractor.extract_data(
-        extract_from    = dataset['source'],
-        extract_to      = config['raw_path'],
-        dataset_name    = dataset['name']
-    )
 
 def main():
     

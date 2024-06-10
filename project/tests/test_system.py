@@ -11,35 +11,41 @@ from etl_components import (
     Loader,
     SQLiteLoader
 )
-from logger import BaseLogger, ConsoleLogger
+
 from tasks import Task, TaskPipeline, PipelineQueue
 
-from .mock_data import CO2_Concentration_Mock_Data
+from .mock import (
+    MockLogger,
+    CO2_Concentration_Mock_Data
+)
+
+RAW_DATA_DIR = "./tests/mock/data/raw/"
+TRANSFORMED_DATA_DIR = "./tests/mock/data/transformed/"
+SINK_DATA_DIR = "./tests/mock/data/sink/"
 
 class TestPipeline(unittest.TestCase):
     def test_co2_concentration_pipeline(self):
         
         # Setup test environment
-        read_from = "./tests/mock_data/CO2_Concentration_Mock_Data.csv"
-        write_to = "./tests/mock_data/"
-        raw_dataset_name = "Transformed_CO2_Concentration_Mock_Data"
-        transformed_dataset_name = "Transformed_CO2_Concentration_Mock_Data"
-        transformed_dataset_path = "./tests/mock_data/Transformed_CO2_Concentration_Mock_Data.csv"
+        dataset_name = "Data_For_Pipeline_Test"
+        raw_data_path = os.path.join(RAW_DATA_DIR, f"{dataset_name}.csv")
+        transformed_data_path = os.path.join(TRANSFORMED_DATA_DIR, f"{dataset_name}.csv")
+
         db_name = 'dataset.sqlite'
         pipeline_name = 'Test Pipeline'
 
         # Save mock data locally
-        logger: BaseLogger = ConsoleLogger()
-        CO2_Concentration_Mock_Data.to_csv(read_from)
+        logger = MockLogger()
+        CO2_Concentration_Mock_Data.to_csv(raw_data_path)
 
         # Extract
         extractor: Extractor = CsvExtractor(logger)
         extract = Task(
             name    = 'Data Extractor',
             action  = lambda: extractor.extract_data(
-                extract_from = read_from,
-                extract_to   = write_to,
-                dataset_name = raw_dataset_name
+                extract_from = raw_data_path,
+                extract_to   = RAW_DATA_DIR,
+                dataset_name = dataset_name
             ),
             logger = logger
         )
@@ -49,9 +55,9 @@ class TestPipeline(unittest.TestCase):
         transform = Task(
             name    = 'Data Transformation',
             action  = lambda: transformer.transform_data(
-                read_from       = read_from,
-                write_to        = write_to,
-                dataset_name    = transformed_dataset_name
+                read_from       = raw_data_path,
+                write_to        = TRANSFORMED_DATA_DIR,
+                dataset_name    = dataset_name
             ),
             logger  = logger
         )
@@ -61,8 +67,8 @@ class TestPipeline(unittest.TestCase):
         load = Task(
             name    = 'Data Loader',
             action  = lambda: loader.load_data(
-                read_from       = write_to,
-                write_to        = write_to,
+                read_from       = TRANSFORMED_DATA_DIR,
+                write_to        = SINK_DATA_DIR,
                 database_name   = db_name
             ),
             logger  = logger
@@ -81,10 +87,10 @@ class TestPipeline(unittest.TestCase):
         test_pipeline_queue.push(test_pipeline)
         test_pipeline_queue.run()
 
-        conn = sqlite3.connect(os.path.join(write_to, db_name))
+        conn = sqlite3.connect(os.path.join(SINK_DATA_DIR, db_name))
         saved_final_test_data = None
         saved_final_test_data = pd.read_sql(
-            sql = f"SELECT * FROM 'Transformed_CO2_Concentration_Mock_Data'",
+            sql = f"SELECT * FROM '{dataset_name}'",
             con = conn
         )
         conn.close()
