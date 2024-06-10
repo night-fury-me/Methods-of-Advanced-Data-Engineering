@@ -10,8 +10,8 @@ class Task:
     def add_dependency(self, task):
         self.dependencies.append(task)
 
-    def run(self, indentation=0):
-        self.logger.info(f"{' ' * indentation}- Executing task: {self.name}")
+    def run(self):
+        self.logger.info(f"Executing task: {self.name}")
         self.action()
 
 class TaskPipeline:
@@ -54,16 +54,16 @@ class TaskPipeline:
         else:
             self.logger(f"There are no tasks to run")
 
-    def _run_recursively(self, task, indentation = 0):
+    def _run_recursively(self, task):
         if isinstance(task, list):
             for parallel_task in task:
-                parallel_task.run(indentation)
+                parallel_task.run()
                 for dependent_task in parallel_task.dependencies:
-                    self._run_recursively(dependent_task, indentation + 4)
+                    self._run_recursively(dependent_task)
         else:
-            task.run(indentation)
+            task.run()
             for dependent_task in task.dependencies:
-                self._run_recursively(dependent_task, indentation + 4)
+                self._run_recursively(dependent_task)
 
         
 class PipelineQueue:

@@ -53,9 +53,6 @@ def main():
         pipeline_queue = PipelineQueue()
 
         for dataset in config['datasets']:
-            
-            console_logger.info(dataset)
-
             extract = Task(
                 name    = 'Extraction task',
                 action  = (
@@ -85,12 +82,14 @@ def main():
                 logger  = console_logger
             )
 
-            pipeline_queue.push((
+            (
                 pipeline 
                     >> extract 
                         >> transform 
                             >> load
-            ))
+            )
+
+            pipeline_queue.push(pipeline)
 
         pipeline_queue.run()
 

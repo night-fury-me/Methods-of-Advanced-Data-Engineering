@@ -13,7 +13,6 @@ class TemperatureDataTransformer(Transformer):
 
         try:
             data = pd.read_csv(read_from)
-            self.logger.info(f"Columns = {data.columns.to_list()}")
             choosen_columns  = ['Country', 'ISO3'] 
             choosen_columns += [col for col in data.columns if col.startswith('F')]
             
