@@ -1,4 +1,7 @@
 from logger import BaseLogger
+from tqdm import tqdm
+from io import StringIO
+import sys
 
 class Task:
     def __init__(self, name, action, logger: BaseLogger):
@@ -74,5 +77,11 @@ class PipelineQueue:
         self.pipelines.append(pipeline)
 
     def run(self):
-        for pipeline in self.pipelines:
+        stdout_backup = sys.stdout
+        
+        sys.stdout = StringIO()
+        
+        for pipeline in tqdm(self.pipelines, desc = 'Pipeline Queue Running'):
             pipeline.run()
+
+        sys.stdout = stdout_backup

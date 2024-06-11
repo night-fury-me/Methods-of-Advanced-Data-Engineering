@@ -1,5 +1,6 @@
 import os
-from logger import BaseLogger, ConsoleLogger
+from datetime import datetime
+from logger import BaseLogger, ConsoleLogger, FileLogger
 from utils import Config, convert_to_class_name
 from etl_components import Extractor, CsvExtractor
 from etl_components import TransformFactory, Transformer
@@ -7,9 +8,9 @@ from etl_components import Loader, SQLiteLoader
 from tasks import Task, TaskPipeline, PipelineQueue
 from copy import deepcopy
 
-def _extract(console_logger, config, dataset):
+def _extract(logger, config, dataset):
     extractor: Extractor = CsvExtractor(
-        logger      = console_logger,
+        logger      = logger,
         delimeter   = ";" if dataset['name'] == 'Solar_Flare_Data' else None
     )
 
@@ -19,8 +20,8 @@ def _extract(console_logger, config, dataset):
         dataset_name    = dataset['name']
     )
 
-def _transform(console_logger, config, dataset):
-    transformer: Transformer =  TransformFactory(logger = console_logger).get_transformer(
+def _transform(logger, config, dataset):
+    transformer: Transformer =  TransformFactory(logger = logger).get_transformer(
         transformer_name = convert_to_class_name(dataset['name'], splitter = '_', suffix = 'Transformer')
     )
     transformer.transform_data(
@@ -29,8 +30,8 @@ def _transform(console_logger, config, dataset):
         dataset_name    = dataset['name']
     )
 
-def _load(console_logger, config):
-    loader: Loader = SQLiteLoader(logger = console_logger)
+def _load(logger, config):
+    loader: Loader = SQLiteLoader(logger = logger)
 
     loader.load_data(
         read_from       = config['transformed_path'],
@@ -42,10 +43,11 @@ def _load(console_logger, config):
 def main():
     
     try:
-        console_logger: BaseLogger = ConsoleLogger()
+        log_file_path = datetime.now().strftime('logs/%Y%m%d_%H%M%S.log')
+        file_logger: BaseLogger = FileLogger(log_file_path)
 
         config = Config(
-            logger      = console_logger, 
+            logger      = file_logger, 
             file_path   = './config/pipeline_config.yaml'
         ).get()
 
@@ -57,29 +59,29 @@ def main():
                 name    = 'Extraction task',
                 action  = (
                     lambda dataset  = dataset: 
-                        _extract(console_logger, config, dataset)
+                        _extract(file_logger, config, dataset)
                 ),
-                logger  = console_logger 
+                logger  = file_logger 
             )
 
             transform = Task(
                 name    = 'Transform task',
                 action  = (
                     lambda dataset = dataset:
-                        _transform(console_logger, config, dataset)
+                        _transform(file_logger, config, dataset)
                 ),
-                logger  = console_logger
+                logger  = file_logger
             )
 
             load = Task(
                 name    = 'Load task',
-                action  = lambda: _load(console_logger, config),
-                logger  = console_logger
+                action  = lambda: _load(file_logger, config),
+                logger  = file_logger
             )
             
             pipeline = TaskPipeline(
                 name    = f'Pipeline for {dataset['name']}',
-                logger  = console_logger
+                logger  = file_logger
             )
 
             (
@@ -93,10 +95,10 @@ def main():
 
         pipeline_queue.run()
 
-        console_logger.info("Pipeline execution completed.")
+        file_logger.info("Pipeline execution completed.")
 
     except Exception as ex:
-        console_logger.error(f"Error occured: {ex}")
+        file_logger.error(f"Error occured: {ex}")
 
 if __name__ == "__main__":
     main()
