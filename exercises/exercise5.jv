@@ -1,0 +1,64 @@
+pipeline GtfsDataPipeline {
+    GtfsZipExtractor 
+        -> GtfsZipArchiveInterpreter
+        -> GtfsStopsTextFilePicker
+        -> GtfsStopsTextFileInterpreter
+        -> GtfsStopsCsvInterpreter
+        -> GtfsStopsTableInterpreter
+        -> GtfsStopsSQLiteLoader;
+
+    block GtfsZipExtractor oftype HttpExtractor {
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    }
+
+    block GtfsZipArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    } 
+
+    block GtfsStopsTextFilePicker oftype FilePicker {
+        path: '/stops.txt';
+    }
+
+    block GtfsStopsTextFileInterpreter oftype TextFileInterpreter {
+        encoding: "latin6";
+    }
+
+    block GtfsStopsCsvInterpreter oftype CSVInterpreter { 
+        delimiter: ",";
+        enclosing: '"';
+    }
+
+    block GtfsStopsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns:[
+            'stop_id' oftype integer,
+            'stop_name' oftype text,
+            'stop_lat' oftype CoordinateType,
+            'stop_lon' oftype CoordinateType,
+            'zone_id' oftype ValidZoneType,
+        ];
+    }
+
+    block GtfsStopsSQLiteLoader oftype SQLiteLoader {
+        table: "stops";
+        file: "./gtfs.sqlite";
+    }
+}
+
+valuetype ValidZoneType oftype integer {
+    constraints:[ValidZone];
+}
+
+constraint ValidZone on integer:
+    value == 1645;
+
+valuetype CoordinateType oftype decimal {
+    constraints:[CoordinateRange];
+}
+
+constraint CoordinateRange oftype RangeConstraint {
+    lowerBound:-90;
+    lowerBoundInclusive: true;
+    upperBound: 90;
+    upperBoundInclusive: true;
+}
