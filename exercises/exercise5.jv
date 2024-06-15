@@ -20,7 +20,7 @@ pipeline GtfsDataPipeline {
     }
 
     block GtfsStopsTextFileInterpreter oftype TextFileInterpreter {
-        encoding: "latin6";
+        encoding: "latin3";
     }
 
     block GtfsStopsCsvInterpreter oftype CSVInterpreter { 
