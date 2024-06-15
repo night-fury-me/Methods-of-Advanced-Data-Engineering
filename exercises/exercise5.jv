@@ -33,8 +33,8 @@ pipeline GtfsDataPipeline {
         columns:[
             'stop_id' oftype integer,
             'stop_name' oftype text,
-            'stop_lat' oftype decimal, //CoordinateType,
-            'stop_lon' oftype decimal, //CoordinateType,
+            'stop_lat' oftype CoordinateType,
+            'stop_lon' oftype CoordinateType,
             'zone_id' oftype ValidZoneType,
         ];
     }
@@ -58,7 +58,5 @@ valuetype CoordinateType oftype decimal {
 
 constraint CoordinateRange oftype RangeConstraint {
     lowerBound:-90;
-    lowerBoundInclusive: true;
     upperBound: 90;
-    upperBoundInclusive: true;
 }
