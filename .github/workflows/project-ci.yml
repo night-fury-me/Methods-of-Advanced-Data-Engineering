@@ -22,9 +22,10 @@ jobs:
       run: |
         python -m venv venv
         . venv/bin/activate
-        pip install -r requirements.txt
+        pip install -r project/requirements.txt
 
     - name: Run tests
       run: |
-        chmod +x tests.sh
-        ./tests.sh
+        chmod +x project/tests.sh
+        project/tests.sh
+
