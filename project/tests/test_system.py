@@ -34,6 +34,9 @@ class TestPipeline(unittest.TestCase):
         db_name = 'dataset.sqlite'
         pipeline_name = 'Test Pipeline'
 
+        sqlite_db_path = os.path.dirname(os.path.join(SINK_DATA_DIR, db_name))
+        os.makedirs(sqlite_db_path, exist_ok = True)    
+
         # Save mock data locally
         logger = MockLogger()
         CO2_Concentration_Mock_Data.to_csv(raw_data_path)

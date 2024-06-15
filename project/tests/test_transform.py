@@ -18,7 +18,6 @@ from .mock import (
 
 RAW_DATA_DIR = "./tests/mock/data/raw/"
 TRANSFORMED_DATA_DIR = "./tests/mock/data/transformed/"
-SQLITE_DB_PATH = "./tests/mock/data/sink/dataset.sqlite"
 
 class TestTransform(unittest.TestCase):
 
@@ -27,9 +26,6 @@ class TestTransform(unittest.TestCase):
         dataset_name = "CO2_Concentration_Mock_Data"
         raw_data_path = os.path.join(RAW_DATA_DIR, f"{dataset_name}.csv")
         transformed_data_path = os.path.join(TRANSFORMED_DATA_DIR, f"{dataset_name}.csv")
-
-        sqlite_db_path = os.path.dirname(SQLITE_DB_PATH)
-        os.makedirs(sqlite_db_path, exist_ok = True)    
 
         # Save mock data locally
         CO2_Concentration_Mock_Data.to_csv(raw_data_path)
