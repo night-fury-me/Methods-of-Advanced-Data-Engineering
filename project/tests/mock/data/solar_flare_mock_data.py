@@ -1,5 +1,11 @@
+import os
 import pandas as pd
 from datetime import datetime, timedelta
+
+file_path = 'tests/mock/data/raw/Solar_Flare_Mock_Data.csv'
+
+parent_directory = os.path.dirname(file_path)
+os.makedirs(parent_directory, exist_ok=True)
 
 base_time = datetime(2024, 1, 1, 0, 0)
 date_times = [base_time + timedelta(hours=i*2) for i in range(10)]  # every 2 hours for variety

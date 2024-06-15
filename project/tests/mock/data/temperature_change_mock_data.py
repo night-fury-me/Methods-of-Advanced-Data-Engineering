@@ -1,5 +1,11 @@
+import os
 import pandas as pd
 import numpy as np
+
+file_path = 'tests/mock/data/raw/Temperature_Change_Mock_Data.csv'
+
+parent_directory = os.path.dirname(file_path)
+os.makedirs(parent_directory, exist_ok=True)
 
 columns = ['ObjectId', 'Country', 'ISO2', 'ISO3', 'Indicator', 'Unit', 'Source', 
            'CTS_Code', 'CTS_Name', 'CTS_Full_Descriptor'] + [f'F{year}' for year in range(1961, 2023)]
