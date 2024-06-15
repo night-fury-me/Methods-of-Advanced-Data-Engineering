@@ -57,8 +57,6 @@ valuetype CoordinateType oftype decimal {
 }
 
 constraint CoordinateRange oftype RangeConstraint {
-    lowerBound:-91;
-    lowerBoundInclusive: false;
-    upperBound: 91;
-    upperBoundInclusive: false;
+    lowerBound:-90;
+    upperBound: 90;
 }
