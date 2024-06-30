@@ -1,0 +1,14 @@
+datasets:
+  - name: Temperature_Data
+    source: "https://opendata.arcgis.com/datasets/4063314923d74187be9596f10d034914_0.csv"
+  - name: Co2_Concentration_Data
+    source: "https://opendata.arcgis.com/datasets/9c3764c0efcc4c71934ab3988f219e0e_0.csv"
+  - name: Sea_Level_Data
+    source: "https://opendata.arcgis.com/datasets/b84a7e25159b4c65ba62d3f82c605855_0.csv"
+  - name: Solar_Flare_Data
+    source: "https://zenodo.org/records/4603412/files/DATA%20SET%20FOR%20SOLAR%20FLARE%20PREDICTION.csv?download=1"
+
+raw_path: "./data/raw/"
+transformed_path: "./data/transformed/"
+sink: "./data/sink/"
+db_name: "CombinedDataset.sqlite"

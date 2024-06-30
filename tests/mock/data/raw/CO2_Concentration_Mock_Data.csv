@@ -1,0 +1,11 @@
+,Unnamed: 0,ObjectId,Country,ISO2,ISO3,Indicator,Unit,Source,CTS_Code,CTS_Name,CTS_Full_Descriptor,Date,Value
+0,1,1607,Country A,CA,CTA,Indicator 1,Unit 1,Source 1,199,CTS Name 1,Descriptor 1,1958M01,9.288142283923928
+1,2,1267,Country B,CB,CTB,Indicator 2,Unit 2,Source 2,133,CTS Name 2,Descriptor 2,1958M02,73.7086008550993
+2,3,1709,Country C,CC,CTC,Indicator 3,Unit 3,Source 3,100,CTS Name 3,Descriptor 3,1958M03,18.218045411643125
+3,4,1724,Country D,CD,CTD,Indicator 4,Unit 4,Source 4,119,CTS Name 4,Descriptor 4,1958M04,89.44883608970116
+4,5,1228,Country E,CE,CTE,Indicator 5,Unit 5,Source 5,183,CTS Name 5,Descriptor 5,1958M05,52.10640291551467
+5,6,1959,Country F,CF,CTF,Indicator 6,Unit 6,Source 6,116,CTS Name 6,Descriptor 6,1958M06,4.560024714012389
+6,7,1205,Country G,CG,CTG,Indicator 7,Unit 7,Source 7,166,CTS Name 7,Descriptor 7,1958M07,61.96910180404211
+7,8,1054,Country H,CH,CTH,Indicator 8,Unit 8,Source 8,172,CTS Name 8,Descriptor 8,1958M08,87.17995554206497
+8,9,1436,Country I,CI,CTI,Indicator 9,Unit 9,Source 9,197,CTS Name 9,Descriptor 9,1958M09,6.348969302072582
+9,10,1957,Country J,CJ,CTJ,Indicator 10,Unit 10,Source 10,161,CTS Name 10,Descriptor 10,1958M10,79.63753594571358
