@@ -1,0 +1,32 @@
+[2024-06-30 12:22:08,368] [INFO] - Read the config file successfully.
+[2024-06-30 12:22:08,370] [INFO] - [#] Pipeline at execution: Pipeline for Temperature_Data
+[2024-06-30 12:22:08,370] [INFO] - Executing task: Extraction task
+[2024-06-30 12:22:09,434] [INFO] - Data extracted and saved to: ./data/raw/
+[2024-06-30 12:22:09,434] [INFO] - Executing task: Transform task
+[2024-06-30 12:22:09,459] [INFO] - Data transformation successful.
+[2024-06-30 12:22:09,459] [INFO] - Executing task: Load task
+[2024-06-30 12:22:09,467] [INFO] - Data from ./data/transformed/Co2_Concentration_Data.csv loaded into Co2_Concentration_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:09,541] [INFO] - Data from ./data/transformed/Solar_Flare_Data.csv loaded into Solar_Flare_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:09,565] [INFO] - Data from ./data/transformed/Temperature_Data.csv loaded into Temperature_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:09,565] [INFO] - Connection to CombinedDataset.sqlite closed.
+[2024-06-30 12:22:09,566] [INFO] - [#] Pipeline at execution: Pipeline for Co2_Concentration_Data
+[2024-06-30 12:22:09,566] [INFO] - Executing task: Extraction task
+[2024-06-30 12:22:10,932] [INFO] - Data extracted and saved to: ./data/raw/
+[2024-06-30 12:22:10,932] [INFO] - Executing task: Transform task
+[2024-06-30 12:22:10,939] [INFO] - Data transformation successful
+[2024-06-30 12:22:10,939] [INFO] - Executing task: Load task
+[2024-06-30 12:22:10,949] [INFO] - Data from ./data/transformed/Co2_Concentration_Data.csv loaded into Co2_Concentration_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:11,016] [INFO] - Data from ./data/transformed/Solar_Flare_Data.csv loaded into Solar_Flare_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:11,039] [INFO] - Data from ./data/transformed/Temperature_Data.csv loaded into Temperature_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:11,039] [INFO] - Connection to CombinedDataset.sqlite closed.
+[2024-06-30 12:22:11,040] [INFO] - [#] Pipeline at execution: Pipeline for Solar_Flare_Data
+[2024-06-30 12:22:11,040] [INFO] - Executing task: Extraction task
+[2024-06-30 12:22:11,604] [INFO] - Data extracted and saved to: ./data/raw/
+[2024-06-30 12:22:11,604] [INFO] - Executing task: Transform task
+[2024-06-30 12:22:11,691] [INFO] - Data transformation successful.
+[2024-06-30 12:22:11,691] [INFO] - Executing task: Load task
+[2024-06-30 12:22:11,701] [INFO] - Data from ./data/transformed/Co2_Concentration_Data.csv loaded into Co2_Concentration_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:11,767] [INFO] - Data from ./data/transformed/Solar_Flare_Data.csv loaded into Solar_Flare_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:11,790] [INFO] - Data from ./data/transformed/Temperature_Data.csv loaded into Temperature_Data table in CombinedDataset.sqlite database.
+[2024-06-30 12:22:11,790] [INFO] - Connection to CombinedDataset.sqlite closed.
+[2024-06-30 12:22:11,791] [INFO] - Pipeline execution completed.
