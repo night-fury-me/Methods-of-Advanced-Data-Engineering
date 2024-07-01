@@ -4,7 +4,8 @@
 
 # Methods of Advanced Data Engineering Template Project
 
-<img src="project/data-report/solar-activity-climate-change.jpg" alt="Project Logo" width="200" height="150">
+<img src="project/data-report/solar-activity-climate-change.jpg" alt="Project Logo" width="100%" height="20%">
+
 ```
 project
 ├── ETL
