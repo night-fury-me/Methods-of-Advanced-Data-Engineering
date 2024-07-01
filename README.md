@@ -4,8 +4,7 @@
 
 # Methods of Advanced Data Engineering Template Project
 
-![Alt text](project/data-report/solar-activity-climate-change.jpg)
-
+<img src="project/data-report/solar-activity-climate-change.jpg" alt="Project Logo" width="200" height="150">
 ```
 project
 ├── ETL
