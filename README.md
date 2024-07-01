@@ -4,6 +4,8 @@
 
 # Methods of Advanced Data Engineering Template Project
 
+![Alt text](project/data-report/solar-activity-climate-change.jpg)
+
 ```
 project
 ├── ETL
