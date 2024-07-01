@@ -3,7 +3,7 @@ import os
 import sqlite3
 import pandas as pd
 
-from etl_components import (
+from ETL import (
     Extractor,
     CsvExtractor,
     Transformer,
