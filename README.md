@@ -2,9 +2,26 @@
 
 ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex1) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex2) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex3) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex4) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex5)
 
-# Methods of Advanced Data Engineering Template Project
+# Influence of Solar Activity on Earth's Climate
 
-<img src="project/data-report/solar-activity-climate-change.jpg" alt="Project Logo" width="100%" height="20%">
+<img src="project/data-report/solar-activity-climate-change_02.jpg" alt="Project Logo" width="100%">
+Image Reference: 
+
+[earth.com](https://www.earth.com/news/a-massive-solar-flare-struck-earth-on-monday-but-what-does-this-mean/)
+
+
+### Introduction
+The project aims to explore the possible connection between solar activity - like solar flares, and climate change on
+Earth. Through the statistical analysis of historical data, our goal is to uncover whether there exists a clear relationship
+between solar events and the observable shift in global climate patterns. This investigation holds significant importance
+as it provides insights essential for refining climate models and improving our capacity to forecast and address the
+consequences of climate change.
+
+### Research Question
+
+`Is there any relationship between solar activity (Solar Flares) and climate change on Earth?`
+
+### Project Structure
 
 ```
 project
