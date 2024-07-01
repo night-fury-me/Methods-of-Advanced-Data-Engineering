@@ -1,11 +1,19 @@
 import os
-from datetime import datetime
-from logger import BaseLogger, FileLogger
-from utils import Config, convert_to_class_name
-from ETL import Extractor, CsvExtractor
-from ETL import TransformFactory, Transformer
-from ETL import Loader, SQLiteLoader
-from tasks import Task, TaskPipeline, PipelineQueue
+
+from datetime   import datetime
+from logger     import BaseLogger, FileLogger
+from utils      import Config, convert_to_class_name
+
+from ETL        import (
+    Extractor, 
+    CsvExtractor,
+    TransformFactory, 
+    Transformer, 
+    Loader, 
+    SQLiteLoader
+)
+
+from tasks      import Task, TaskPipeline, PipelineQueue
 
 def _extract(logger, config, dataset):
     extractor: Extractor = CsvExtractor(
