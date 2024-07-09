@@ -46,15 +46,8 @@ project
 │   └── pipeline_config.yaml
 ├── data
 │   ├── raw
-│   │   ├── Co2_Concentration_Data.csv
-│   │   ├── Solar_Flare_Data.csv
-│   │   └── Temperature_Data.csv
 │   ├── sink
-│   │   └── CombinedDataset.sqlite
 │   └── transformed
-│       ├── Co2_Concentration_Data.csv
-│       ├── Solar_Flare_Data.csv
-│       └── Temperature_Data.csv
 ├── data-analysis
 │   ├── data-analysis.ipynb
 │   └── plots
@@ -78,20 +71,11 @@ project
 │   │   ├── data
 │   │   │   ├── __init__.py
 │   │   │   ├── co2_concentration_mock_data.py
-│   │   │   ├── raw
-│   │   │   │   ├── CO2_Concentration_Mock_Data.csv
-│   │   │   │   ├── Data_For_Pipeline_Test.csv
-│   │   │   │   ├── Solar_Flare_Mock_Data.csv
-│   │   │   │   └── Temperature_Change_Mock_Data.csv
-│   │   │   ├── sink
-│   │   │   │   └── dataset.sqlite
 │   │   │   ├── solar_flare_mock_data.py
 │   │   │   ├── temperature_change_mock_data.py
+│   │   │   ├── raw
+│   │   │   ├── sink
 │   │   │   └── transformed
-│   │   │       ├── CO2_Concentration_Mock_Data.csv
-│   │   │       ├── Data_For_Pipeline_Test.csv
-│   │   │       ├── Solar_Flare_Mock_Data.csv
-│   │   │       └── Temperature_Change_Mock_Data.csv
 │   │   └── mock_logger.py
 │   ├── test_system.py
 │   └── test_transform.py
@@ -108,5 +92,59 @@ project
 ├── project-plan.md
 └── requirements.txt
 ```
+
+### Installation
+
+### Using conda
+
+To install necessary dependencies using conda, execute the following command after cloning the repository:
+
+```bash
+conda env create -f environment.yml
+```
+
+This command will create a conda environment named `made-env` (or any other specified name in your `environment.yml` file) and install all required packages.
+
+Using pip
+
+If you prefer using pip, you can install the dependencies listed in `requirements.txt`. Make sure you have Python and pip installed, then run:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Running the Data Pipeline
+
+You can run the data pipeline using either `pipeline.sh` or `pipeline.py`:
+
+```bash
+cd project
+chmod +x pipeline.sh
+./pipeline.sh
+OR
+python pipeline.py
+```
+
+### Running Unit Tests
+
+To run unit tests for the data pipeline, use either `tests.sh` or `tests.py`:
+
+```bash
+cd project
+chmod +x tests.sh
+./tests.sh
+OR
+python tests.py
+```
+
+### Continuous Integration with GitHub Actions
+
+Whenever a commit is pushed to this repository, the unit tests for the data pipeline will be automatically triggered using GitHub Actions. The status of the test run will be notified to the Slack channel `#made-ci-cd` as shown in the image below:
+
+<img src="project/data-report/slack-webhook.png" alt="slack-webhook.png" width="100%">
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
 
