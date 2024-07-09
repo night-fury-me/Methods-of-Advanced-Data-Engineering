@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test:
+  test-data-pipeline:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,50 @@ jobs:
         chmod +x project/tests.sh
         project/tests.sh
 
+        - name: Notify Slack on success
+      if: success()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{
+            "blocks": [
+                {
+                    "type": "header",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Test result of repo ${{ github.repository }}"
+                    }
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "*🎉 🥳 Tests passed!*\nPlease check the details at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                }
+            ]
+        }' $SLACK_WEBHOOK_URL
+
+    - name: Notify Slack on failure
+      if: failure()
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{
+            "blocks": [
+                {
+                    "type": "header",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Test result of repo ${{ github.repository }}"
+                    }
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": "*🤖 🤖 Tests failed!*\nPlease check the details at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                }
+            ]
+        }' $SLACK_WEBHOOK_URL
