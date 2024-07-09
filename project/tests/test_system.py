@@ -98,6 +98,9 @@ class TestPipeline(unittest.TestCase):
         )
         conn.close()
         
+        # For testing purpose.
+        self.assertEqual(True, False)
+
         self.assertEqual(len(saved_final_test_data), 10)
         self.assertEqual(len(saved_final_test_data.columns.to_list()), 2)
         self.assertEqual(saved_final_test_data.columns.to_list(), ['Date', 'CO2_Concentration_PPM'])
