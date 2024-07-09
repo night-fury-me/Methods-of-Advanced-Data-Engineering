@@ -1,6 +1,5 @@
-# Exercise Badges
+> _This repository contains data engineering and data science projects and exercises using open data sources as part of the [AMSE](https://oss.cs.fau.de/teaching/specific/amse/)/[SAKI](https://oss.cs.fau.de/teaching/specific/saki/) course, taught by the [FAU Chair for Open-Source Software (OSS)](https://oss.cs.fau.de/) in the Summer'24 semester. This repo is forked from [2023-amse-template repository](https://github.com/jvalue/made-template)._
 
-![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex1) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex2) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex3) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex4) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex5)
 
 # Influence of Solar Activity on Earth's Climate
 
@@ -147,4 +146,8 @@ Whenever a commit is pushed to this repository, the unit tests for the data pipe
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
+
+### Exercise Badges (Part of the course-work)
+
+![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex1) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex2) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex3) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex4) ![](https://byob.yarr.is/night-fury-me/Methods-of-Advanced-Data-Engineering/score_ex5)
 
