@@ -29,7 +29,7 @@ jobs:
         chmod +x project/tests.sh
         project/tests.sh
 
-        - name: Notify Slack on success
+    - name: Notify Slack on success
       if: success()
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
