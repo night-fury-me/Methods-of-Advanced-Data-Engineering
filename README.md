@@ -95,7 +95,7 @@ project
 
 ### Installation
 
-### Using conda
+**Using conda**
 
 To install necessary dependencies using conda, execute the following command after cloning the repository:
 
@@ -105,7 +105,7 @@ conda env create -f environment.yml
 
 This command will create a conda environment named `made-env` (or any other specified name in your `environment.yml` file) and install all required packages.
 
-Using pip
+**Using pip**
 
 If you prefer using pip, you can install the dependencies listed in `requirements.txt`. Make sure you have Python and pip installed, then run:
 
