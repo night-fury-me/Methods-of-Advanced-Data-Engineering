@@ -137,7 +137,7 @@ OR
 python tests.py
 ```
 
-### Continuous Integration with GitHub Actions
+### Test Automation with GitHub Actions
 
 Whenever a commit is pushed to this repository, the unit tests for the data pipeline will be automatically triggered using GitHub Actions. The status of the test run will be notified to the Slack channel `#made-ci-cd` as shown in the image below:
 
